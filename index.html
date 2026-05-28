@@ -130,6 +130,7 @@
       }
       .live-video-section {
         flex: 2;
+        aspect-ratio: 16/9 !important; /* Retorna ao padrão horizontal no PC */
       }
     }
 
@@ -141,7 +142,7 @@
       overflow: hidden;
       border: 2px solid var(--accent);
       box-shadow: 0 0 15px rgba(255, 61, 127, 0.25);
-      aspect-ratio: 16/9;
+      aspect-ratio: 4/5; /* Aumentado para melhor visualização no celular */
       display: flex;
     }
     .live-video-section video {
@@ -163,19 +164,6 @@
       animation: pulseRed 1.5s infinite;
       letter-spacing: 0.5px;
     }
-    .viewers-count {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 6px;
-      z-index: 5;
-    }
     @keyframes pulseRed {
       0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
       70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
@@ -190,7 +178,7 @@
       border-radius: var(--radius);
       display: flex;
       flex-direction: column;
-      height: 180px;
+      height: 240px; /* Levemente aumentado para caber o input de chat */
     }
     .comments-header {
       padding: 10px 14px;
@@ -221,12 +209,54 @@
     }
     .comment-user {
       font-weight: 700;
-      color: var(--gold);
       margin-right: 6px;
     }
+    .comment-user.model { color: var(--accent); }
+    .comment-user.you { color: var(--gold); }
+    
     .comment-text {
       color: var(--text);
     }
+    
+    /* Input do Chat */
+    .chat-input-area {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,0.01);
+      border-bottom-left-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+      gap: 8px;
+    }
+    .chat-input-area input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border 0.3s;
+    }
+    .chat-input-area input:focus {
+      border-color: var(--accent);
+    }
+    .chat-input-area button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 0 16px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .chat-input-area button:hover {
+      background: #e0356f;
+    }
+
     @keyframes fadeUpMsg {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -397,14 +427,17 @@
 
     <div class="live-video-section">
       <div class="live-badge">🔴 AO VIVO</div>
-      <div class="viewers-count">👁️ <span id="viewer-count">20</span> assistindo</div>
       <video src="https://s3.canalwpp.com/sarah2.0/tomandobanho.mp4" autoplay loop muted playsinline></video>
     </div>
   </div>
 
   <div class="live-comments-wrapper fadein">
-    <div class="comments-header">💬 Chat VIP ao vivo</div>
+    <div class="comments-header">💬 Mensagens Diretas (Privado)</div>
     <div class="comments-container" id="live-chat-box"></div>
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" placeholder="Mande uma mensagem pra ela..." autocomplete="off">
+      <button id="chat-send">Enviar</button>
+    </div>
   </div>
 
   <div class="confirmed-box fadein">
@@ -589,60 +622,67 @@
 
     document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox({target:document.getElementById('lightbox')}) });
 
-    // ── LOGICA DINAMICA DA LIVE E CHAT ──
-    const viewerCountEl = document.getElementById('viewer-count');
-    let currentViewers = 20;
-
-    setInterval(() => {
-      const variation = Math.floor(Math.random() * 15) - 5;
-      currentViewers += variation;
-      if (viewerCountEl) viewerCountEl.innerText = currentViewers.toLocaleString('pt-BR');
-    }, 4000);
-
+    // ── LÓGICA DO CHAT EXCLUSIVO ──
     const chatBox = document.getElementById('live-chat-box');
-    const nomes = ['Marcos Silva', 'Joao_Vip', 'Anonimo33', 'CarlosEdu', 'Lucas.T', 'Vitor99', 'Rafael', 'Danilo_HD', 'Rodrigo_S', 'Felipe10'];
-    const mensagens = [
-      'Que mulher deliciosa 🔥🔥',
-      'Valeu cada centavo desse VIP',
-      'Mostra mais amor!',
-      'Gostosa demais',
-      'Tô apaixonado 😍',
-      'Queria muito estar aí',
-      'O melhor conteúdo, vale super a pena',
-      'Faz aquela dancinha de novo',
-      'Vip ta insano hj 🥵',
-      'Sarah é perfeita demais slff'
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+
+    const respostasModelo = [
+      'Hahaha você é um fofo! 😍',
+      'Que delícia ler isso...',
+      'Queria você aqui comigo agora 🔥',
+      'Ai, me deixou com vergonha 🙈',
+      'Você é sempre assim tão direto? Adoro',
+      'Faz isso não que eu fico louca...',
+      'Hmm... gostei de saber disso 😏',
+      'Vem me ver de pertinho...',
+      'Você sabe bem como me provocar né?',
+      'Se você estivesse aqui, não ia sobrar roupa rs'
     ];
 
-    function gerarComentario() {
+    function addMensagem(autor, texto, tipo) {
       if (!chatBox) return;
-      const nomeAleatorio = nomes[Math.floor(Math.random() * nomes.length)];
-      const msgAleatoria = mensagens[Math.floor(Math.random() * mensagens.length)];
-
       const commentDiv = document.createElement('div');
       commentDiv.className = 'comment-item';
-      commentDiv.innerHTML = `<span class="comment-user">${nomeAleatorio}</span><span class="comment-text">${msgAleatoria}</span>`;
-
+      
+      const userClass = tipo === 'model' ? 'comment-user model' : 'comment-user you';
+      
+      commentDiv.innerHTML = `<span class="${userClass}">${autor}:</span> <span class="comment-text">${texto}</span>`;
+      
       chatBox.appendChild(commentDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
 
-      if (chatBox.children.length > 15) {
+      if (chatBox.children.length > 20) {
         chatBox.removeChild(chatBox.firstChild);
       }
     }
 
-    function agendarProximoComentario() {
-      const tempoAleatorio = Math.random() * 2500 + 1500;
+    // Mensagem de boas-vindas inicial da modelo
+    setTimeout(() => {
+      addMensagem('Sarah', 'Oi lindo! Que bom que você entrou no VIP. Fala comigo! 💕', 'model');
+    }, 1500);
+
+    function enviarMensagemUser() {
+      const texto = chatInput.value.trim();
+      if (!texto) return;
+
+      // Adiciona mensagem do usuário
+      addMensagem('Você', texto, 'you');
+      chatInput.value = '';
+
+      // Agenda a resposta aleatória da modelo
+      const tempoResposta = Math.random() * 2000 + 1000; // Responde entre 1 e 3 segundos
       setTimeout(() => {
-        gerarComentario();
-        agendarProximoComentario();
-      }, tempoAleatorio);
+        const resposta = respostasModelo[Math.floor(Math.random() * respostasModelo.length)];
+        addMensagem('Sarah', resposta, 'model');
+      }, tempoResposta);
     }
 
-    gerarComentario();
-    setTimeout(gerarComentario, 600);
-    setTimeout(gerarComentario, 1200);
-    agendarProximoComentario();
+    // Eventos de clique e tecla Enter
+    chatSend.addEventListener('click', enviarMensagemUser);
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') enviarMensagemUser();
+    });
   </script>
 </body>
 </html>

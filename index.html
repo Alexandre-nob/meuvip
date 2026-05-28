@@ -397,7 +397,7 @@
 
     <div class="live-video-section">
       <div class="live-badge">🔴 AO VIVO</div>
-      <div class="viewers-count">👁️ <span id="viewer-count">1.243</span> assistindo</div>
+      <div class="viewers-count">👁️ <span id="viewer-count">20</span> assistindo</div>
       <video src="https://s3.canalwpp.com/sarah2.0/previaangulo1.mp4" autoplay loop muted playsinline></video>
     </div>
   </div>
@@ -591,10 +591,10 @@
 
     // ── LOGICA DINAMICA DA LIVE E CHAT ──
     const viewerCountEl = document.getElementById('viewer-count');
-    let currentViewers = 1243;
+    let currentViewers = 20;
 
     setInterval(() => {
-      const variation = Math.floor(Math.random() * 35) - 15;
+      const variation = Math.floor(Math.random() * 15) - 5;
       currentViewers += variation;
       if (viewerCountEl) viewerCountEl.innerText = currentViewers.toLocaleString('pt-BR');
     }, 4000);

@@ -130,7 +130,7 @@
       }
       .live-video-section {
         flex: 2;
-        aspect-ratio: 16/9 !important; /* Retorna ao padrão horizontal no PC */
+        aspect-ratio: 16/9 !important; 
       }
     }
 
@@ -142,7 +142,7 @@
       overflow: hidden;
       border: 2px solid var(--accent);
       box-shadow: 0 0 15px rgba(255, 61, 127, 0.25);
-      aspect-ratio: 4/5; /* Aumentado para melhor visualização no celular */
+      aspect-ratio: 4/5;
       display: flex;
     }
     .live-video-section video {
@@ -178,7 +178,7 @@
       border-radius: var(--radius);
       display: flex;
       flex-direction: column;
-      height: 240px; /* Levemente aumentado para caber o input de chat */
+      height: 240px;
     }
     .comments-header {
       padding: 10px 14px;
@@ -218,7 +218,6 @@
       color: var(--text);
     }
     
-    /* Input do Chat */
     .chat-input-area {
       display: flex;
       padding: 10px;
@@ -327,7 +326,6 @@
       color:#fff;padding:2px 7px;border-radius:99px;
     }
 
-    /* FEATURED video (full width) */
     .media-item.featured{aspect-ratio:16/9;grid-column:1/-1;border-radius:12px}
 
     /* ── LIGHTBOX ── */
@@ -371,12 +369,10 @@
       color:#4ade80;font-weight:700;font-size:.85rem;text-decoration:none;
     }
 
-    /* ── SCROLLBAR ── */
     ::-webkit-scrollbar{width:4px}
     ::-webkit-scrollbar-track{background:transparent}
     ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}
 
-    /* Animação de entrada */
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     .fadein{animation:fadeUp .5s ease both}
     .fadein:nth-child(2){animation-delay:.05s}
@@ -427,7 +423,7 @@
 
     <div class="live-video-section">
       <div class="live-badge">🔴 AO VIVO</div>
-      <video src="https://s3.canalwpp.com/sarah2.0/tomandobanho.mp4" autoplay loop muted playsinline></video>
+      <video id="live-video-player" autoplay muted playsinline preload="auto"></video>
     </div>
   </div>
 
@@ -621,6 +617,40 @@
     }
 
     document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox({target:document.getElementById('lightbox')}) });
+
+    // ── LÓGICA DO VÍDEO EM PARTES (PLAYLIST DA LIVE) ──
+    const videoPlayer = document.getElementById('live-video-player');
+    
+    // Lista com as 8 partes fatiadas
+    const videoParts = [
+      'https://s3.canalwpp.com/sarah2.0/liveparte1.mp4',
+      'https://s3.canalwpp.com/sarah2.0/liveparte2.mp4',
+      'https://s3.canalwpp.com/sarah2.0/liveparte3.mp4',
+      'https://s3.canalwpp.com/sarah2.0/liveparte4.mp4',
+      'https://s3.canalwpp.com/sarah2.0/liveparte5.mp4',
+      'https://s3.canalwpp.com/sarah2.0/liveparte6.mp4',
+      'https://s3.canalwpp.com/sarah2.0/liveparte7.mp4',
+      'https://s3.canalwpp.com/sarah2.0/liveparte8.mp4'
+    ];
+
+    let currentPartIndex = 0;
+
+    if (videoPlayer && videoParts.length > 0) {
+      videoPlayer.src = videoParts[currentPartIndex];
+      videoPlayer.play().catch(e => console.log("Aguardando interação para tocar:", e));
+      
+      videoPlayer.addEventListener('ended', () => {
+        currentPartIndex++;
+        
+        // Se chegar no final da lista, volta para a parte 1
+        if (currentPartIndex >= videoParts.length) {
+          currentPartIndex = 0;
+        }
+        
+        videoPlayer.src = videoParts[currentPartIndex];
+        videoPlayer.play();
+      });
+    }
 
     // ── LÓGICA DO CHAT EXCLUSIVO ──
     const chatBox = document.getElementById('live-chat-box');

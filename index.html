@@ -41,7 +41,7 @@
       position:sticky;top:0;z-index:200;
     }
 
-    /* ── HEADER PROFILE ── */
+    /* ── HEADER PROFILE & COVER ── */
     .cover{
       position:relative;height:180px;
       background:linear-gradient(135deg,#1a0820,#0d1a2e,#1a0820);
@@ -69,330 +69,222 @@
       background:linear-gradient(135deg,var(--accent),var(--accent2),var(--gold));
       display:inline-block;
       box-shadow:0 8px 32px rgba(255,61,127,.35);
+      margin-bottom: 10px;
     }
     .avatar-ring img{
       width:100%;height:100%;
       border-radius:50%;object-fit:cover;
       border:3px solid var(--bg);
     }
-    .profile-info{margin-top:10px}
     .profile-name{
       font-family:'Playfair Display',serif;
       font-size:1.5rem;font-weight:700;
     }
     .profile-handle{color:var(--muted);font-size:.82rem;margin-top:2px}
-    .profile-badges{
-      display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center;
+    
+    /* ── PAYWALL / TELA DE BLOQUEIO ── */
+    #gate-screen {
+      padding: 0 18px 40px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 5;
+      margin-top: -56px;
     }
-    .badge{
-      padding:4px 11px;border-radius:99px;font-size:.72rem;font-weight:700;
+    .gate-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 15px;
+      margin-bottom: 8px;
     }
+    .gate-desc {
+      color: var(--text);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      max-width: 400px;
+    }
+    .pix-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      width: 100%;
+      max-width: 400px;
+      text-align: left;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .pix-box h3 {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      color: var(--gold);
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .pix-info-row {
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+    }
+    .pix-info-row span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .pix-info-row strong {
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .pix-copy-btn {
+      width: 100%;
+      padding: 10px;
+      background: rgba(255, 61, 127, 0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 8px;
+      font-weight: 700;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .pix-copy-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    .password-area {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .password-area input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 1rem;
+      text-align: center;
+      outline: none;
+    }
+    .password-area input:focus {
+      border-color: var(--gold);
+    }
+    .password-area button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 61, 127, 0.3);
+    }
+    .error-msg {
+      color: #ef4444;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      display: none;
+      font-weight: 500;
+    }
+
+    /* ── CONTEÚDO VIP (Oculto inicialmente) ── */
+    #vip-content {
+      display: none;
+    }
+
+    /* ── CLASSES ANTIGAS DO VIP ── */
+    .profile-badges{ display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center; }
+    .badge{ padding:4px 11px;border-radius:99px;font-size:.72rem;font-weight:700; }
     .badge-vip{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff}
-    .badge-verified{
-      background:rgba(245,200,66,.12);color:var(--gold);
-      border:1px solid rgba(245,200,66,.3);
-    }
-    .badge-new{
-      background:rgba(255,255,255,.06);color:var(--muted);
-      border:1px solid var(--border);
-    }
-    .stats{
-      display:flex;gap:22px;margin-top:14px;padding-top:14px;
-      border-top:1px solid var(--border);
-    }
+    .badge-verified{ background:rgba(245,200,66,.12);color:var(--gold); border:1px solid rgba(245,200,66,.3); }
+    .badge-new{ background:rgba(255,255,255,.06);color:var(--muted); border:1px solid var(--border); }
+    .stats{ display:flex;gap:22px;margin-top:14px;padding-top:14px; border-top:1px solid var(--border); }
     .stat{text-align:center}
     .stat-n{font-weight:700;font-size:1.1rem}
     .stat-l{color:var(--muted);font-size:.7rem;margin-top:1px}
 
-    /* ── HERO LIVE WRAPPER (Perfil + Vídeo) ── */
-    .hero-live-wrapper {
-      position: relative;
-      z-index: 3;
-      padding: 0 18px;
-      margin-top: -56px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .hero-live-wrapper .profile-section {
-      padding: 0;
-      margin-top: 0;
-    }
-
+    .hero-live-wrapper { position: relative; z-index: 3; padding: 0 18px; margin-top: -56px; display: flex; flex-direction: column; gap: 20px; }
+    .hero-live-wrapper .profile-section { padding: 0; margin-top: 0; }
     @media (min-width: 768px) {
-      .hero-live-wrapper {
-        flex-direction: row;
-        align-items: stretch;
-      }
-      .hero-live-wrapper .profile-section {
-        flex: 1;
-        min-width: 300px;
-      }
-      .live-video-section {
-        flex: 2;
-        aspect-ratio: 16/9 !important; 
-      }
+      .hero-live-wrapper { flex-direction: row; align-items: stretch; }
+      .hero-live-wrapper .profile-section { flex: 1; min-width: 300px; }
+      .live-video-section { flex: 2; aspect-ratio: 16/9 !important; }
     }
 
-    /* ── LIVE VIDEO SECTION ── */
-    .live-video-section {
-      position: relative;
-      background: #000;
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 2px solid var(--accent);
-      box-shadow: 0 0 15px rgba(255, 61, 127, 0.25);
-      aspect-ratio: 3/4;
-      display: flex;
-    }
-    .live-video-section video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: #000;
-    }
-    .live-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: #ef4444;
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 6px;
-      z-index: 5;
-      animation: pulseRed 1.5s infinite;
-      letter-spacing: 0.5px;
-    }
+    .live-video-section { position: relative; background: #000; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--accent); box-shadow: 0 0 15px rgba(255, 61, 127, 0.25); aspect-ratio: 3/4; display: flex; }
+    .live-video-section video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+    .live-badge { position: absolute; top: 12px; left: 12px; background: #ef4444; color: #fff; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; z-index: 5; animation: pulseRed 1.5s infinite; letter-spacing: 0.5px; }
+    @keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
 
-    @keyframes pulseRed {
-      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-      70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-    }
-
-    /* ── LIVE COMMENTS SECTION ── */
-    .live-comments-wrapper {
-      margin: 18px 18px 10px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      display: flex;
-      flex-direction: column;
-      height: 240px;
-    }
-    .comments-header {
-      padding: 10px 14px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text);
-      border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,0.02);
-      border-top-left-radius: var(--radius);
-      border-top-right-radius: var(--radius);
-    }
-    .comments-container {
-      flex: 1;
-      padding: 12px 14px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      scroll-behavior: smooth;
-    }
+    .live-comments-wrapper { margin: 18px 18px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; flex-direction: column; height: 240px; }
+    .comments-header { padding: 10px 14px; font-size: 0.85rem; font-weight: 700; color: var(--text); border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02); border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); }
+    .comments-container { flex: 1; padding: 12px 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
     .comments-container::-webkit-scrollbar { width: 4px; }
     .comments-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
-
-    .comment-item {
-      font-size: 0.85rem;
-      line-height: 1.4;
-      animation: fadeUpMsg 0.4s ease forwards;
-    }
-    .comment-user {
-      font-weight: 700;
-      margin-right: 6px;
-    }
+    .comment-item { font-size: 0.85rem; line-height: 1.4; animation: fadeUpMsg 0.4s ease forwards; }
+    .comment-user { font-weight: 700; margin-right: 6px; }
     .comment-user.model { color: var(--accent); }
     .comment-user.you { color: var(--gold); }
+    .comment-text { color: var(--text); }
     
-    .comment-text {
-      color: var(--text);
-    }
-    
-    .chat-input-area {
-      display: flex;
-      padding: 10px;
-      border-top: 1px solid var(--border);
-      background: rgba(255,255,255,0.01);
-      border-bottom-left-radius: var(--radius);
-      border-bottom-right-radius: var(--radius);
-      gap: 8px;
-    }
-    .chat-input-area input {
-      flex: 1;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 20px;
-      padding: 8px 14px;
-      font-size: 0.85rem;
-      outline: none;
-      transition: border 0.3s;
-    }
-    .chat-input-area input:focus {
-      border-color: var(--accent);
-    }
-    .chat-input-area button {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 20px;
-      padding: 0 16px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .chat-input-area button:hover {
-      background: #e0356f;
-    }
+    .chat-input-area { display: flex; padding: 10px; border-top: 1px solid var(--border); background: rgba(255,255,255,0.01); border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); gap: 8px; }
+    .chat-input-area input { flex: 1; background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 20px; padding: 8px 14px; font-size: 0.85rem; outline: none; transition: border 0.3s; }
+    .chat-input-area input:focus { border-color: var(--accent); }
+    .chat-input-area button { background: var(--accent); color: #fff; border: none; border-radius: 20px; padding: 0 16px; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: background 0.3s; }
+    .chat-input-area button:hover { background: #e0356f; }
+    @keyframes fadeUpMsg { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes fadeUpMsg {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .confirmed-box{ margin: 10px 18px 18px; background:rgba(34,197,94,.07); border:1px solid rgba(34,197,94,.25); border-radius:var(--radius); padding:14px 16px; display:flex; gap:12px; align-items:flex-start; }
+    .confirmed-icon{ font-size:1.4rem; flex-shrink:0; margin-top:2px; }
+    .confirmed-title{ font-weight:700; font-size:.9rem; color:#4ade80; }
+    .confirmed-sub{ color:var(--muted); font-size:.78rem; margin-top:3px; line-height:1.4; }
 
-    /* ── PURCHASE CONFIRMED BOX ── */
-    .confirmed-box{
-      margin: 10px 18px 18px;
-      background:rgba(34,197,94,.07);
-      border:1px solid rgba(34,197,94,.25);
-      border-radius:var(--radius);
-      padding:14px 16px;
-      display:flex;gap:12px;align-items:flex-start;
-    }
-    .confirmed-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px}
-    .confirmed-title{font-weight:700;font-size:.9rem;color:#4ade80}
-    .confirmed-sub{color:var(--muted);font-size:.78rem;margin-top:3px;line-height:1.4}
+    .tabs{ display:flex; border-bottom:1px solid var(--border); padding:0 18px; gap:0; position:sticky; top:34px; z-index:100; background:var(--bg); }
+    .tab{ padding:12px 16px; font-size:.82rem; font-weight:600; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all .2s; white-space:nowrap; }
+    .tab.active{ color:var(--text); border-bottom-color:var(--accent); }
 
-    /* ── TABS ── */
-    .tabs{
-      display:flex;border-bottom:1px solid var(--border);
-      padding:0 18px;gap:0;position:sticky;top:34px;z-index:100;
-      background:var(--bg);
-    }
-    .tab{
-      padding:12px 16px;font-size:.82rem;font-weight:600;
-      color:var(--muted);cursor:pointer;
-      border-bottom:2px solid transparent;
-      transition:all .2s;white-space:nowrap;
-    }
-    .tab.active{color:var(--text);border-bottom-color:var(--accent)}
-
-    /* ── CONTENT GRID ── */
     .section{display:none;padding:16px 14px}
     .section.active{display:block}
+    .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .grid-3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; }
+    .media-item{ position:relative; border-radius:10px; overflow:hidden; background:#0f1419; cursor:pointer; aspect-ratio:3/4; }
+    .media-item img, .media-item video{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease; }
+    .media-item:hover img, .media-item:hover video{ transform:scale(1.04); }
+    .media-overlay{ position:absolute; inset:0; background:linear-gradient(0deg,rgba(0,0,0,.6) 0%,transparent 50%); display:flex; align-items:flex-end; padding:8px; }
+    .play-icon{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,.18); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; font-size:1.1rem; border:1px solid rgba(255,255,255,.25); }
+    .media-tag{ font-size:.62rem; font-weight:700; background:var(--accent); color:#fff; padding:2px 7px; border-radius:99px; }
+    .media-item.featured{ aspect-ratio:16/9; grid-column:1/-1; border-radius:12px; }
 
-    .grid-2{
-      display:grid;grid-template-columns:1fr 1fr;gap:8px;
-    }
-    .grid-3{
-      display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;
-    }
-    .media-item{
-      position:relative;border-radius:10px;overflow:hidden;
-      background:#0f1419;cursor:pointer;
-      aspect-ratio:3/4;
-    }
-    .media-item img,.media-item video{
-      width:100%;height:100%;object-fit:cover;display:block;
-      transition:transform .3s ease;
-    }
-    .media-item:hover img,.media-item:hover video{transform:scale(1.04)}
-    .media-overlay{
-      position:absolute;inset:0;
-      background:linear-gradient(0deg,rgba(0,0,0,.6) 0%,transparent 50%);
-      display:flex;align-items:flex-end;padding:8px;
-    }
-    .play-icon{
-      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-      width:44px;height:44px;border-radius:50%;
-      background:rgba(255,255,255,.18);backdrop-filter:blur(4px);
-      display:flex;align-items:center;justify-content:center;
-      font-size:1.1rem;
-      border:1px solid rgba(255,255,255,.25);
-    }
-    .media-tag{
-      font-size:.62rem;font-weight:700;background:var(--accent);
-      color:#fff;padding:2px 7px;border-radius:99px;
-    }
+    .lightbox{ display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,.95); align-items:center; justify-content:center; padding:16px; }
+    .lightbox.open{ display:flex; }
+    .lightbox-inner{ position:relative; max-width:500px; width:100%; max-height:90vh; display:flex; align-items:center; justify-content:center; }
+    .lightbox-inner img, .lightbox-inner video{ max-width:100%; max-height:85vh; border-radius:12px; object-fit:contain; }
+    .lightbox-close{ position:absolute; top:-14px; right:-14px; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.1); border:none; color:#fff; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; }
 
-    .media-item.featured{aspect-ratio:16/9;grid-column:1/-1;border-radius:12px}
+    .support-footer{ margin:24px 18px 32px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px; text-align:center; }
+    .support-footer p{ color:var(--muted); font-size:.82rem; line-height:1.5; }
+    .btn-support{ display:inline-flex; align-items:center; gap:8px; margin-top:12px; padding:11px 20px; border-radius:10px; background:rgba(37,211,102,.12); border:1px solid rgba(37,211,102,.3); color:#4ade80; font-weight:700; font-size:.85rem; text-decoration:none; }
 
-    /* ── LIGHTBOX ── */
-    .lightbox{
-      display:none;position:fixed;inset:0;z-index:999;
-      background:rgba(0,0,0,.95);
-      align-items:center;justify-content:center;padding:16px;
-    }
-    .lightbox.open{display:flex}
-    .lightbox-inner{
-      position:relative;max-width:500px;width:100%;
-      max-height:90vh;
-      display:flex;align-items:center;justify-content:center;
-    }
-    .lightbox-inner img,.lightbox-inner video{
-      max-width:100%;max-height:85vh;
-      border-radius:12px;object-fit:contain;
-    }
-    .lightbox-close{
-      position:absolute;top:-14px;right:-14px;
-      width:36px;height:36px;border-radius:50%;
-      background:rgba(255,255,255,.1);border:none;
-      color:#fff;font-size:1.2rem;cursor:pointer;
-      display:flex;align-items:center;justify-content:center;
-    }
-
-    /* ── SUPPORT FOOTER ── */
-    .support-footer{
-      margin:24px 18px 32px;
-      background:var(--surface);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:16px;
-      text-align:center;
-    }
-    .support-footer p{color:var(--muted);font-size:.82rem;line-height:1.5}
-    .btn-support{
-      display:inline-flex;align-items:center;gap:8px;
-      margin-top:12px;padding:11px 20px;border-radius:10px;
-      background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);
-      color:#4ade80;font-weight:700;font-size:.85rem;text-decoration:none;
-    }
-
-    ::-webkit-scrollbar{width:4px}
-    ::-webkit-scrollbar-track{background:transparent}
-    ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}
+    ::-webkit-scrollbar{ width:4px; }
+    ::-webkit-scrollbar-track{ background:transparent; }
+    ::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.1); border-radius:2px; }
 
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     .fadein{animation:fadeUp .5s ease both}
-    .fadein:nth-child(2){animation-delay:.05s}
-    .fadein:nth-child(3){animation-delay:.1s}
-    .fadein:nth-child(4){animation-delay:.15s}
-    .fadein:nth-child(5){animation-delay:.2s}
   </style>
 
-  <script>
-    !function(f,b,e,v,n,t,s){
-      if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];
-      t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s);
-    }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init','1673968253270388');
-    fbq('track','PageView');
-    fbq('track','Purchase',{value:10.00,currency:'BRL'});
-  </script>
 </head>
 <body>
 
@@ -402,176 +294,207 @@
     <div class="cover-gradient"></div>
   </div>
 
-  <div class="hero-live-wrapper fadein">
-    <div class="profile-section">
-      <div class="avatar-ring">
-        <img src="https://s3.canalwpp.com/sarah2.0/previa1.jpg" alt="Sarah Hadassa">
+  <!-- ── TELA DE BLOQUEIO (GATE) ── -->
+  <div id="gate-screen" class="fadein">
+    <div class="avatar-ring">
+      <img src="https://s3.canalwpp.com/sarah2.0/previa1.jpg" alt="Sarah Hadassa">
+    </div>
+    <div class="profile-name">Sarah Hadassa</div>
+    <div class="profile-handle">@sarahhadassa</div>
+    
+    <div class="gate-title">Área VIP Bloqueada 🔒</div>
+    <div class="gate-desc">Para acessar todos os meus vídeos, fotos e a live exclusiva, faça o pagamento de <strong>R$ 10,00</strong> e me mande o comprovante no WhatsApp para receber sua senha.</div>
+    
+    <div class="pix-box">
+      <h3>🔑 Dados para Pagamento</h3>
+      <div class="pix-info-row">
+        <span>Nome</span>
+        <strong>SARAH HADASSA NOBREZA MATOS</strong>
       </div>
-      <div class="profile-info">
-        <div class="profile-name">Sarah Hadassa</div>
-        <div class="profile-handle">@sarahhadassa • Conteúdo exclusivo VIP</div>
-        <div class="profile-badges">
-          <span class="badge badge-vip">⭐ VIP</span>
-          <span class="badge badge-verified">✓ Verificada</span>
-          <span class="badge badge-new">🔥 Novo conteúdo</span>
+      <div class="pix-info-row">
+        <span>Instituição</span>
+        <strong>BANCO INTER</strong>
+      </div>
+      <div class="pix-info-row">
+        <span>Chave Pix (CPF)</span>
+        <strong id="chave-pix">075.225.211-90</strong>
+      </div>
+      <button class="pix-copy-btn" onclick="copiarPix()">Copiar Chave Pix</button>
+    </div>
+
+    <div class="password-area">
+      <input type="text" id="vip-password" placeholder="Digite a senha de acesso" autocomplete="off">
+      <button onclick="checkPassword()">Liberar Acesso 🔥</button>
+      <div id="error-msg" class="error-msg">Senha incorreta! Envie o comprovante no zap para receber a senha correta.</div>
+    </div>
+  </div>
+
+  <!-- ── CONTEÚDO VIP (Inicia escondido) ── -->
+  <div id="vip-content">
+    
+    <div class="hero-live-wrapper fadein">
+      <div class="profile-section">
+        <div class="avatar-ring">
+          <img src="https://s3.canalwpp.com/sarah2.0/previa1.jpg" alt="Sarah Hadassa">
         </div>
-        <div class="stats">
-          <div class="stat"><div class="stat-n">25</div><div class="stat-l">Mídias</div></div>
-          <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Real</div></div>
-          <div class="stat"><div class="stat-n">R$10</div><div class="stat-l">Pago ✓</div></div>
+        <div class="profile-info">
+          <div class="profile-name">Sarah Hadassa</div>
+          <div class="profile-handle">@sarahhadassa • Conteúdo exclusivo VIP</div>
+          <div class="profile-badges">
+            <span class="badge badge-vip">⭐ VIP</span>
+            <span class="badge badge-verified">✓ Verificada</span>
+            <span class="badge badge-new">🔥 Novo conteúdo</span>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="stat-n">25</div><div class="stat-l">Mídias</div></div>
+            <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Real</div></div>
+            <div class="stat"><div class="stat-n">R$10</div><div class="stat-l">Pago ✓</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="live-video-section">
+        <div class="live-badge">🔴 AO VIVO</div>
+        <video id="live-video-player" poster="https://s3.canalwpp.com/sarah2.0/previa1.jpg" muted playsinline preload="auto"></video>
+      </div>
+    </div>
+
+    <div class="live-comments-wrapper fadein">
+      <div class="comments-header">💬 Mensagens Diretas (Privado)</div>
+      <div class="comments-container" id="live-chat-box"></div>
+      <div class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Mande uma mensagem pra ela..." autocomplete="off">
+        <button id="chat-send">Enviar</button>
+      </div>
+    </div>
+
+    <div class="confirmed-box fadein">
+      <div class="confirmed-icon">✅</div>
+      <div>
+        <div class="confirmed-title">Pagamento confirmado — Acesso liberado</div>
+        <div class="confirmed-sub">Você tem acesso completo a todas as fotos e vídeos exclusivos da Sarah. Aproveite! 🔥</div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('videos',this)">▶ Vídeos (10)</div>
+      <div class="tab" onclick="switchTab('fotos',this)">📸 Fotos (8)</div>
+      <div class="tab" onclick="switchTab('previas',this)">🔥 Prévias (5)</div>
+    </div>
+
+    <div id="tab-videos" class="section active">
+      <div class="grid-2">
+        <div class="media-item featured fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/meconhendomelhor.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/meconhendomelhor.mp4" muted playsinline preload="metadata" poster="https://s3.canalwpp.com/sarah2.0/mensagembothtml.jpg"></video>
+          <div class="media-overlay"><span class="media-tag">🔥 DESTAQUE</span></div>
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/balan%C3%A7ando%20a%20bunda.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/balan%C3%A7ando%20a%20bunda.mp4" muted playsinline preload="metadata"></video>
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/balan%C3%A7andopeitos.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/balan%C3%A7andopeitos.mp4" muted playsinline preload="metadata"></video>
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/conteudo1.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/conteudo1.mp4" muted playsinline preload="metadata"></video>
+          <div class="media-overlay"><span class="media-tag">NOVO</span></div>
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/conteudo2.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/conteudo2.mp4" muted playsinline preload="metadata"></video>
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/conteudo3.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/conteudo3.mp4" muted playsinline preload="metadata"></video>
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/conteudo4.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/conteudo4.mp4" muted playsinline preload="metadata"></video>
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/conteudo43.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/conteudo43.mp4" muted playsinline preload="metadata"></video>
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/peitoschuveiros.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/peitoschuveiros.mp4" muted playsinline preload="metadata"></video>
+          <div class="media-overlay"><span class="media-tag">🚿 HOT</span></div>
+          <div class="play-icon">▶</div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/tomandobanho.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/tomandobanho.mp4" muted playsinline preload="metadata"></video>
+          <div class="play-icon">▶</div>
         </div>
       </div>
     </div>
 
-    <div class="live-video-section">
-      <div class="live-badge">🔴 AO VIVO</div>
-      <video id="live-video-player" src="https://s3.canalwpp.com/livesarah/liveparte1.mp4" poster="https://s3.canalwpp.com/sarah2.0/previa1.jpg" autoplay muted playsinline preload="auto"></video>
-    </div>
-  </div>
-
-  <div class="live-comments-wrapper fadein">
-    <div class="comments-header">💬 Mensagens Diretas (Privado)</div>
-    <div class="comments-container" id="live-chat-box"></div>
-    <div class="chat-input-area">
-      <input type="text" id="chat-input" placeholder="Mande uma mensagem pra ela..." autocomplete="off">
-      <button id="chat-send">Enviar</button>
-    </div>
-  </div>
-
-  <div class="confirmed-box fadein">
-    <div class="confirmed-icon">✅</div>
-    <div>
-      <div class="confirmed-title">Pagamento confirmado — Acesso liberado</div>
-      <div class="confirmed-sub">Você tem acesso completo a todas as fotos e vídeos exclusivos da Sarah. Aproveite! 🔥</div>
-    </div>
-  </div>
-
-  <div class="tabs">
-    <div class="tab active" onclick="switchTab('videos',this)">▶ Vídeos (10)</div>
-    <div class="tab" onclick="switchTab('fotos',this)">📸 Fotos (8)</div>
-    <div class="tab" onclick="switchTab('previas',this)">🔥 Prévias (5)</div>
-  </div>
-
-  <div id="tab-videos" class="section active">
-    <div class="grid-2">
-      <div class="media-item featured fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/meconhendomelhor.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/meconhendomelhor.mp4" muted playsinline preload="metadata" poster="https://s3.canalwpp.com/sarah2.0/mensagembothtml.jpg"></video>
-        <div class="media-overlay"><span class="media-tag">🔥 DESTAQUE</span></div>
-        <div class="play-icon">▶</div>
-      </div>
-
-      <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/balan%C3%A7ando%20a%20bunda.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/balan%C3%A7ando%20a%20bunda.mp4" muted playsinline preload="metadata"></video>
-        <div class="play-icon">▶</div>
-      </div>
-
-      <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/balan%C3%A7andopeitos.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/balan%C3%A7andopeitos.mp4" muted playsinline preload="metadata"></video>
-        <div class="play-icon">▶</div>
-      </div>
-
-      <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/conteudo1.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/conteudo1.mp4" muted playsinline preload="metadata"></video>
-        <div class="media-overlay"><span class="media-tag">NOVO</span></div>
-        <div class="play-icon">▶</div>
-      </div>
-
-      <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/conteudo2.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/conteudo2.mp4" muted playsinline preload="metadata"></video>
-        <div class="play-icon">▶</div>
-      </div>
-
-      <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/conteudo3.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/conteudo3.mp4" muted playsinline preload="metadata"></video>
-        <div class="play-icon">▶</div>
-      </div>
-
-      <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/conteudo4.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/conteudo4.mp4" muted playsinline preload="metadata"></video>
-        <div class="play-icon">▶</div>
-      </div>
-
-      <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/conteudo43.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/conteudo43.mp4" muted playsinline preload="metadata"></video>
-        <div class="play-icon">▶</div>
-      </div>
-
-      <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/peitoschuveiros.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/peitoschuveiros.mp4" muted playsinline preload="metadata"></video>
-        <div class="media-overlay"><span class="media-tag">🚿 HOT</span></div>
-        <div class="play-icon">▶</div>
-      </div>
-
-      <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/tomandobanho.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/tomandobanho.mp4" muted playsinline preload="metadata"></video>
-        <div class="play-icon">▶</div>
+    <div id="tab-fotos" class="section">
+      <div class="grid-3">
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/emcasaespelho.jpeg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/emcasaespelho.jpeg" alt="" loading="lazy">
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/fotoespelho2.jpeg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/fotoespelho2.jpeg" alt="" loading="lazy">
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/meuspeit%C3%A3o.jpg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/meuspeit%C3%A3o.jpg" alt="" loading="lazy">
+          <div class="media-overlay"><span class="media-tag">🔥</span></div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/safadagamer.jpeg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/safadagamer.jpeg" alt="" loading="lazy">
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/safadagamer.jpg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/safadagamer.jpg" alt="" loading="lazy">
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/safadaroxa.jpg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/safadaroxa.jpg" alt="" loading="lazy">
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/mensagembothtml.jpg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/mensagembothtml.jpg" alt="" loading="lazy">
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/previaangulo1.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/previaangulo1.mp4" muted playsinline preload="metadata"></video>
+          <div class="play-icon">▶</div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="tab-fotos" class="section">
-    <div class="grid-3">
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/emcasaespelho.jpeg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/emcasaespelho.jpeg" alt="" loading="lazy">
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/fotoespelho2.jpeg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/fotoespelho2.jpeg" alt="" loading="lazy">
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/meuspeit%C3%A3o.jpg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/meuspeit%C3%A3o.jpg" alt="" loading="lazy">
-        <div class="media-overlay"><span class="media-tag">🔥</span></div>
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/safadagamer.jpeg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/safadagamer.jpeg" alt="" loading="lazy">
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/safadagamer.jpg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/safadagamer.jpg" alt="" loading="lazy">
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/safadaroxa.jpg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/safadaroxa.jpg" alt="" loading="lazy">
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/mensagembothtml.jpg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/mensagembothtml.jpg" alt="" loading="lazy">
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/previaangulo1.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/previaangulo1.mp4" muted playsinline preload="metadata"></video>
-        <div class="play-icon">▶</div>
+    <div id="tab-previas" class="section">
+      <div class="grid-3">
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/previa1.jpg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/previa1.jpg" alt="" loading="lazy">
+          <div class="media-overlay"><span class="media-tag">VIP</span></div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/previa2.jpg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/previa2.jpg" alt="" loading="lazy">
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/previa3.jpg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/previa3.jpg" alt="" loading="lazy">
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/previa4.jpg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/previa4.jpg" alt="" loading="lazy">
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/previaboa.jpg')">
+          <img src="https://s3.canalwpp.com/sarah2.0/previaboa.jpg" alt="" loading="lazy">
+          <div class="media-overlay"><span class="media-tag">🔥 TOP</span></div>
+        </div>
+        <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/quasemostrando.mp4')">
+          <video src="https://s3.canalwpp.com/sarah2.0/quasemostrando.mp4" muted playsinline preload="metadata"></video>
+          <div class="play-icon">▶</div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="tab-previas" class="section">
-    <div class="grid-3">
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/previa1.jpg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/previa1.jpg" alt="" loading="lazy">
-        <div class="media-overlay"><span class="media-tag">VIP</span></div>
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/previa2.jpg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/previa2.jpg" alt="" loading="lazy">
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/previa3.jpg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/previa3.jpg" alt="" loading="lazy">
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/previa4.jpg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/previa4.jpg" alt="" loading="lazy">
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('img','https://s3.canalwpp.com/sarah2.0/previaboa.jpg')">
-        <img src="https://s3.canalwpp.com/sarah2.0/previaboa.jpg" alt="" loading="lazy">
-        <div class="media-overlay"><span class="media-tag">🔥 TOP</span></div>
-      </div>
-      <div class="media-item fadein" onclick="openLightbox('video','https://s3.canalwpp.com/sarah2.0/quasemostrando.mp4')">
-        <video src="https://s3.canalwpp.com/sarah2.0/quasemostrando.mp4" muted playsinline preload="metadata"></video>
-        <div class="play-icon">▶</div>
-      </div>
+    <div class="support-footer fadein">
+      <p>Curtiu os conteúdos? Fala comigo no WhatsApp para mais exclusivos ou para tirar qualquer dúvida 💕</p>
+      <a class="btn-support" href="https://wa.me/556183200152?text=Oi%20Sarah%2C%20quero%20mais%20conte%C3%BAdos" target="_blank" rel="noopener">
+        💬 Falar com a Sarah
+      </a>
     </div>
-  </div>
 
-  <div class="support-footer fadein">
-    <p>Curtiu os conteúdos? Fala comigo no WhatsApp para mais exclusivos ou para tirar qualquer dúvida 💕</p>
-    <a class="btn-support" href="https://wa.me/556183200152?text=Oi%20Sarah%2C%20quero%20mais%20conte%C3%BAdos" target="_blank" rel="noopener">
-      💬 Falar com a Sarah
-    </a>
-  </div>
+  </div> <!-- Fim VIP Content -->
 
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
     <div class="lightbox-inner" id="lightbox-inner">
@@ -580,6 +503,52 @@
   </div>
 
   <script>
+    // ── LÓGICA DE COPIAR PIX ──
+    function copiarPix() {
+      const pix = "07522521190"; // Chave sem pontuação para facilitar no app do banco
+      navigator.clipboard.writeText(pix).then(() => {
+        const btn = document.querySelector('.pix-copy-btn');
+        btn.innerText = "Chave Copiada! ✅";
+        btn.style.background = "#4ade80";
+        btn.style.color = "#000";
+        btn.style.borderColor = "#4ade80";
+        setTimeout(() => {
+          btn.innerText = "Copiar Chave Pix";
+          btn.style.background = "rgba(255, 61, 127, 0.1)";
+          btn.style.color = "var(--accent)";
+          btn.style.borderColor = "var(--accent)";
+        }, 3000);
+      });
+    }
+
+    // ── LÓGICA DE SENHA E LIBERAÇÃO DO VIP ──
+    function checkPassword() {
+      const inputPass = document.getElementById('vip-password').value.trim().toLowerCase();
+      
+      // ABAIXO VOCÊ ALTERA A SENHA (atualmente é 'liberado')
+      const senhaCorreta = "liberado"; 
+      
+      if (inputPass === senhaCorreta) {
+        // Esconde a tela de bloqueio e mostra o VIP
+        document.getElementById('gate-screen').style.display = 'none';
+        document.getElementById('vip-content').style.display = 'block';
+        
+        // Inicia os scripts pesados (Live e Chat) só agora para não rodar escondido
+        iniciarLiveEChat();
+        window.scrollTo(0, 0); // Sobe a página para o topo
+      } else {
+        document.getElementById('error-msg').style.display = 'block';
+      }
+    }
+
+    // Permitir dar "Enter" no campo de senha
+    document.getElementById('vip-password').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+
+    // ── NAVEGAÇÃO DE ABAS E LIGHTBOX ──
     function switchTab(name, el){
       document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
       document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
@@ -620,103 +589,88 @@
 
     document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox({target:document.getElementById('lightbox')}) });
 
-    // ── LÓGICA DO VÍDEO EM PARTES (PLAYLIST DA LIVE) ──
-    const videoPlayer = document.getElementById('live-video-player');
-    
-    // Lista com as 8 partes fatiadas (apontando pro bucket livesarah)
-    const videoParts = [
-      'https://s3.canalwpp.com/livesarah/liveparte1.mp4',
-      'https://s3.canalwpp.com/livesarah/liveparte2.mp4',
-      'https://s3.canalwpp.com/livesarah/liveparte3.mp4',
-      'https://s3.canalwpp.com/livesarah/liveparte4.mp4',
-      'https://s3.canalwpp.com/livesarah/liveparte5.mp4',
-      'https://s3.canalwpp.com/livesarah/liveparte6.mp4',
-      'https://s3.canalwpp.com/livesarah/liveparte7.mp4',
-      'https://s3.canalwpp.com/livesarah/liveparte8.mp4'
-    ];
-
-    let currentPartIndex = 0;
-
-    if (videoPlayer && videoParts.length > 0) {
-      // Tenta forçar o play com um pequeno atraso para burlar o bloqueio do celular
-      setTimeout(() => {
-        videoPlayer.play().catch(e => console.log("Aguardando interação para tocar:", e));
-      }, 200);
+    // ── FUNÇÃO QUE INICIA A LIVE E O CHAT APÓS A SENHA ──
+    function iniciarLiveEChat() {
+      const videoPlayer = document.getElementById('live-video-player');
       
-      videoPlayer.addEventListener('ended', () => {
-        currentPartIndex++;
-        
-        // Se chegar no final da lista, volta para a parte 1
-        if (currentPartIndex >= videoParts.length) {
-          currentPartIndex = 0;
-        }
-        
+      const videoParts = [
+        'https://s3.canalwpp.com/livesarah/liveparte1.mp4',
+        'https://s3.canalwpp.com/livesarah/liveparte2.mp4',
+        'https://s3.canalwpp.com/livesarah/liveparte3.mp4',
+        'https://s3.canalwpp.com/livesarah/liveparte4.mp4',
+        'https://s3.canalwpp.com/livesarah/liveparte5.mp4',
+        'https://s3.canalwpp.com/livesarah/liveparte6.mp4',
+        'https://s3.canalwpp.com/livesarah/liveparte7.mp4',
+        'https://s3.canalwpp.com/livesarah/liveparte8.mp4'
+      ];
+
+      let currentPartIndex = 0;
+
+      if (videoPlayer && videoParts.length > 0) {
         videoPlayer.src = videoParts[currentPartIndex];
-        videoPlayer.play().catch(e => console.log("Erro ao pular de parte:", e));
+        setTimeout(() => {
+          videoPlayer.play().catch(e => console.log("Aguardando interação:", e));
+        }, 200);
+        
+        videoPlayer.addEventListener('ended', () => {
+          currentPartIndex++;
+          if (currentPartIndex >= videoParts.length) currentPartIndex = 0;
+          videoPlayer.src = videoParts[currentPartIndex];
+          videoPlayer.play().catch(e => console.log("Erro ao pular:", e));
+        });
+      }
+
+      const chatBox = document.getElementById('live-chat-box');
+      const chatInput = document.getElementById('chat-input');
+      const chatSend = document.getElementById('chat-send');
+
+      const respostasModelo = [
+        'Hahaha você é um fofo! 😍',
+        'Que delícia ler isso...',
+        'Queria você aqui comigo agora 🔥',
+        'Ai, me deixou com vergonha 🙈',
+        'Você é sempre assim tão direto? Adoro',
+        'Faz isso não que eu fico louca...',
+        'Hmm... gostei de saber disso 😏',
+        'Vem me ver de pertinho...',
+        'Você sabe bem como me provocar né?',
+        'Se você estivesse aqui, não ia sobrar roupa rs'
+      ];
+
+      function addMensagem(autor, texto, tipo) {
+        if (!chatBox) return;
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment-item';
+        const userClass = tipo === 'model' ? 'comment-user model' : 'comment-user you';
+        commentDiv.innerHTML = `<span class="${userClass}">${autor}:</span> <span class="comment-text">${texto}</span>`;
+        chatBox.appendChild(commentDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        if (chatBox.children.length > 20) {
+          chatBox.removeChild(chatBox.firstChild);
+        }
+      }
+
+      setTimeout(() => {
+        addMensagem('Sarah', 'Oi lindo! Que bom que você entrou no VIP. Fala comigo! 💕', 'model');
+      }, 1500);
+
+      function enviarMensagemUser() {
+        const texto = chatInput.value.trim();
+        if (!texto) return;
+        addMensagem('Você', texto, 'you');
+        chatInput.value = '';
+        const tempoResposta = Math.random() * 2000 + 1000;
+        setTimeout(() => {
+          const resposta = respostasModelo[Math.floor(Math.random() * respostasModelo.length)];
+          addMensagem('Sarah', resposta, 'model');
+        }, tempoResposta);
+      }
+
+      chatSend.addEventListener('click', enviarMensagemUser);
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') enviarMensagemUser();
       });
     }
-
-    // ── LÓGICA DO CHAT EXCLUSIVO ──
-    const chatBox = document.getElementById('live-chat-box');
-    const chatInput = document.getElementById('chat-input');
-    const chatSend = document.getElementById('chat-send');
-
-    const respostasModelo = [
-      'Hahaha você é um fofo! 😍',
-      'Que delícia ler isso...',
-      'Queria você aqui comigo agora 🔥',
-      'Ai, me deixou com vergonha 🙈',
-      'Você é sempre assim tão direto? Adoro',
-      'Faz isso não que eu fico louca...',
-      'Hmm... gostei de saber disso 😏',
-      'Vem me ver de pertinho...',
-      'Você sabe bem como me provocar né?',
-      'Se você estivesse aqui, não ia sobrar roupa rs'
-    ];
-
-    function addMensagem(autor, texto, tipo) {
-      if (!chatBox) return;
-      const commentDiv = document.createElement('div');
-      commentDiv.className = 'comment-item';
-      
-      const userClass = tipo === 'model' ? 'comment-user model' : 'comment-user you';
-      
-      commentDiv.innerHTML = `<span class="${userClass}">${autor}:</span> <span class="comment-text">${texto}</span>`;
-      
-      chatBox.appendChild(commentDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-
-      if (chatBox.children.length > 20) {
-        chatBox.removeChild(chatBox.firstChild);
-      }
-    }
-
-    // Mensagem de boas-vindas inicial da modelo
-    setTimeout(() => {
-      addMensagem('Sarah', 'Oi lindo! Que bom que você entrou no VIP. Fala comigo! 💕', 'model');
-    }, 1500);
-
-    function enviarMensagemUser() {
-      const texto = chatInput.value.trim();
-      if (!texto) return;
-
-      // Adiciona mensagem do usuário
-      addMensagem('Você', texto, 'you');
-      chatInput.value = '';
-
-      // Agenda a resposta aleatória da modelo
-      const tempoResposta = Math.random() * 2000 + 1000; // Responde entre 1 e 3 segundos
-      setTimeout(() => {
-        const resposta = respostasModelo[Math.floor(Math.random() * respostasModelo.length)];
-        addMensagem('Sarah', resposta, 'model');
-      }, tempoResposta);
-    }
-
-    // Eventos de clique e tecla Enter
-    chatSend.addEventListener('click', enviarMensagemUser);
-    chatInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') enviarMensagemUser();
-    });
   </script>
 </body>
 </html>

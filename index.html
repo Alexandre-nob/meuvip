@@ -8,6 +8,25 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet">
 
+  <!-- ── META PIXEL CODE ── -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    // COLOQUE O ID DO SEU PIXEL ABAIXO (Substitua SEU_PIXEL_ID)
+    fbq('init', 'SEU_PIXEL_ID'); 
+    
+    // Dispara apenas o PageView quando a página abre
+    fbq('track', 'PageView');
+  </script>
+  <!-- ── END META PIXEL CODE ── -->
+
   <style>
     :root{
       --bg:#080b0f;
@@ -23,197 +42,127 @@
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
-      background:var(--bg);
+      /* Fundo fica transparente inicialmente para o vídeo embaçado aparecer */
+      background: transparent; 
       color:var(--text);
       font-family:'DM Sans',system-ui,sans-serif;
       min-height:100vh;
       -webkit-font-smoothing:antialiased;
     }
 
-    /* ── TOP BANNER ── */
-    .top-banner{
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      text-align:center;
-      padding:9px 16px;
-      font-size:.78rem;
-      font-weight:700;
-      letter-spacing:.6px;
-      position:sticky;top:0;z-index:200;
+    /* ── BACKGROUND VÍDEO EMBAÇADO (TELA DE BLOQUEIO) ── */
+    #locked-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+    }
+    #locked-bg video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: blur(15px); /* Efeito embaçado */
+      transform: scale(1.1); /* Evita bordas brancas do blur */
+    }
+    .locked-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 11, 15, 0.75); /* Escurece o vídeo para o texto ficar legível */
     }
 
-    /* ── HEADER PROFILE & COVER ── */
-    .cover{
-      position:relative;height:180px;
-      background:linear-gradient(135deg,#1a0820,#0d1a2e,#1a0820);
-      overflow:hidden;
-    }
-    .cover::after{
-      content:'';position:absolute;inset:0;
-      background:url('https://s3.canalwpp.com/sarah2.0/mensagembothtml.jpg') center/cover;
-      opacity:.25;filter:blur(4px);
-    }
-    .cover-gradient{
-      position:absolute;bottom:0;left:0;right:0;height:80px;
-      background:linear-gradient(transparent,var(--bg));
-      z-index:2;
-    }
-    .profile-section{
-      position:relative;z-index:3;
-      padding:0 18px 18px;
-      margin-top:-56px;
-    }
-    .avatar-ring{
-      width:100px;height:100px;
-      border-radius:50%;
-      padding:3px;
-      background:linear-gradient(135deg,var(--accent),var(--accent2),var(--gold));
-      display:inline-block;
-      box-shadow:0 8px 32px rgba(255,61,127,.35);
-      margin-bottom: 10px;
-    }
-    .avatar-ring img{
-      width:100%;height:100%;
-      border-radius:50%;object-fit:cover;
-      border:3px solid var(--bg);
-    }
-    .profile-name{
-      font-family:'Playfair Display',serif;
-      font-size:1.5rem;font-weight:700;
-    }
-    .profile-handle{color:var(--muted);font-size:.82rem;margin-top:2px}
-    
     /* ── PAYWALL / TELA DE BLOQUEIO ── */
     #gate-screen {
-      padding: 0 18px 40px;
-      text-align: center;
+      position: relative;
+      z-index: 5;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: relative;
-      z-index: 5;
-      margin-top: -56px;
+      justify-content: center;
+      padding: 40px 18px;
+      text-align: center;
+    }
+    .gate-avatar {
+      width: 90px; height: 90px;
+      border-radius: 50%; padding: 3px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--gold));
+      margin-bottom: 10px;
+      box-shadow: 0 8px 32px rgba(255,61,127,.35);
+    }
+    .gate-avatar img {
+      width: 100%; height: 100%;
+      border-radius: 50%; object-fit: cover; border: 3px solid #1a0820;
     }
     .gate-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin-top: 15px;
-      margin-bottom: 8px;
+      font-size: 1.4rem; font-weight: 700; color: var(--accent);
+      margin-top: 15px; margin-bottom: 8px;
     }
     .gate-desc {
-      color: var(--text);
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin-bottom: 20px;
-      max-width: 400px;
+      color: var(--text); font-size: 0.95rem; line-height: 1.5;
+      margin-bottom: 25px; max-width: 400px;
     }
     .pix-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: rgba(15, 20, 25, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 61, 127, 0.3);
       border-radius: var(--radius);
-      padding: 20px;
-      width: 100%;
-      max-width: 400px;
-      text-align: left;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      padding: 20px; width: 100%; max-width: 400px;
+      text-align: left; margin-bottom: 25px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.5);
     }
     .pix-box h3 {
-      font-size: 1rem;
-      margin-bottom: 15px;
-      color: var(--gold);
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 10px;
+      font-size: 1rem; margin-bottom: 15px; color: var(--gold);
+      text-align: center; border-bottom: 1px solid var(--border); padding-bottom: 10px;
     }
-    .pix-info-row {
-      margin-bottom: 10px;
-      font-size: 0.85rem;
-    }
+    .pix-info-row { margin-bottom: 10px; font-size: 0.85rem; }
     .pix-info-row span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 2px;
+      display: block; color: #a1b0be; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;
     }
-    .pix-info-row strong {
-      color: var(--text);
-      font-size: 0.95rem;
-    }
+    .pix-info-row strong { color: #fff; font-size: 0.95rem; }
     .pix-copy-btn {
-      width: 100%;
-      padding: 10px;
-      background: rgba(255, 61, 127, 0.1);
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      border-radius: 8px;
-      font-weight: 700;
-      margin-top: 10px;
-      cursor: pointer;
-      transition: all 0.3s;
+      width: 100%; padding: 12px; background: rgba(255, 61, 127, 0.15);
+      border: 1px solid var(--accent); color: var(--accent);
+      border-radius: 8px; font-weight: 700; margin-top: 10px; cursor: pointer; transition: all 0.3s;
     }
-    .pix-copy-btn:hover {
-      background: var(--accent);
-      color: #fff;
-    }
-    .password-area {
-      width: 100%;
-      max-width: 400px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .pix-copy-btn:hover { background: var(--accent); color: #fff; }
+    
+    .password-area { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; }
     .password-area input {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font-size: 1rem;
-      text-align: center;
-      outline: none;
+      width: 100%; padding: 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.5); color: #fff; font-size: 1rem; text-align: center; outline: none; backdrop-filter: blur(5px);
     }
-    .password-area input:focus {
-      border-color: var(--gold);
-    }
+    .password-area input:focus { border-color: var(--gold); }
     .password-area button {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      border: none;
+      width: 100%; padding: 14px; border-radius: 10px; border: none;
       background: linear-gradient(90deg, var(--accent), var(--accent2));
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255, 61, 127, 0.3);
+      color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 61, 127, 0.3);
     }
-    .error-msg {
-      color: #ef4444;
-      font-size: 0.85rem;
-      margin-top: 10px;
-      display: none;
-      font-weight: 500;
-    }
+    .error-msg { color: #ef4444; font-size: 0.85rem; margin-top: 10px; display: none; font-weight: 500; }
 
-    /* ── CONTEÚDO VIP (Oculto inicialmente) ── */
-    #vip-content {
-      display: none;
-    }
+    /* ── ESTRUTURA VIP (Fica oculta inicialmente) ── */
+    #vip-wrapper { display: none; }
 
-    /* ── CLASSES ANTIGAS DO VIP ── */
-    .profile-badges{ display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center; }
-    .badge{ padding:4px 11px;border-radius:99px;font-size:.72rem;font-weight:700; }
-    .badge-vip{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff}
-    .badge-verified{ background:rgba(245,200,66,.12);color:var(--gold); border:1px solid rgba(245,200,66,.3); }
-    .badge-new{ background:rgba(255,255,255,.06);color:var(--muted); border:1px solid var(--border); }
-    .stats{ display:flex;gap:22px;margin-top:14px;padding-top:14px; border-top:1px solid var(--border); }
-    .stat{text-align:center}
-    .stat-n{font-weight:700;font-size:1.1rem}
-    .stat-l{color:var(--muted);font-size:.7rem;margin-top:1px}
+    /* ── TOP BANNER & HEADER VIP ── */
+    .top-banner{ background:linear-gradient(90deg,var(--accent),var(--accent2)); text-align:center; padding:9px 16px; font-size:.78rem; font-weight:700; letter-spacing:.6px; position:sticky; top:0; z-index:200; }
+    .cover{ position:relative; height:180px; background:linear-gradient(135deg,#1a0820,#0d1a2e,#1a0820); overflow:hidden; }
+    .cover::after{ content:''; position:absolute; inset:0; background:url('https://s3.canalwpp.com/sarah2.0/mensagembothtml.jpg') center/cover; opacity:.25; filter:blur(4px); }
+    .cover-gradient{ position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(transparent,var(--bg)); z-index:2; }
+    
+    .profile-section{ position:relative; z-index:3; padding:0 18px 18px; margin-top:-56px; }
+    .avatar-ring{ width:100px; height:100px; border-radius:50%; padding:3px; background:linear-gradient(135deg,var(--accent),var(--accent2),var(--gold)); display:inline-block; box-shadow:0 8px 32px rgba(255,61,127,.35); margin-bottom: 10px; }
+    .avatar-ring img{ width:100%; height:100%; border-radius:50%; object-fit:cover; border:3px solid var(--bg); }
+    .profile-name{ font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; }
+    .profile-handle{ color:var(--muted); font-size:.82rem; margin-top:2px; }
+    
+    .profile-badges{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; align-items:center; }
+    .badge{ padding:4px 11px; border-radius:99px; font-size:.72rem; font-weight:700; }
+    .badge-vip{ background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#fff; }
+    .badge-verified{ background:rgba(245,200,66,.12); color:var(--gold); border:1px solid rgba(245,200,66,.3); }
+    .badge-new{ background:rgba(255,255,255,.06); color:var(--muted); border:1px solid var(--border); }
+    .stats{ display:flex; gap:22px; margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
+    .stat{ text-align:center; }
+    .stat-n{ font-weight:700; font-size:1.1rem; }
+    .stat-l{ color:var(--muted); font-size:.7rem; margin-top:1px; }
 
     .hero-live-wrapper { position: relative; z-index: 3; padding: 0 18px; margin-top: -56px; display: flex; flex-direction: column; gap: 20px; }
     .hero-live-wrapper .profile-section { padding: 0; margin-top: 0; }
@@ -288,22 +237,23 @@
 </head>
 <body>
 
-  <div class="top-banner">🔒 ÁREA VIP · ACESSO EXCLUSIVO · APENAS PARA VOCÊ</div>
-
-  <div class="cover">
-    <div class="cover-gradient"></div>
+  <!-- ── VÍDEO EMBAÇADO NO FUNDO DA TELA DE BLOQUEIO ── -->
+  <div id="locked-bg">
+    <!-- Usando a parte 1 da live para ficar rodando em loop no fundo -->
+    <video src="https://s3.canalwpp.com/livesarah/liveparte1.mp4" autoplay muted loop playsinline></video>
+    <div class="locked-bg-overlay"></div>
   </div>
 
   <!-- ── TELA DE BLOQUEIO (GATE) ── -->
   <div id="gate-screen" class="fadein">
-    <div class="avatar-ring">
+    <div class="gate-avatar">
       <img src="https://s3.canalwpp.com/sarah2.0/previa1.jpg" alt="Sarah Hadassa">
     </div>
     <div class="profile-name">Sarah Hadassa</div>
-    <div class="profile-handle">@sarahhadassa</div>
+    <div class="profile-handle" style="color: #ccc;">@sarahhadassa</div>
     
     <div class="gate-title">Área VIP Bloqueada 🔒</div>
-    <div class="gate-desc">Para acessar todos os meus vídeos, fotos e a live exclusiva, faça o pagamento de <strong>R$ 10,00</strong> e me mande o comprovante no WhatsApp para receber sua senha.</div>
+    <div class="gate-desc">Para acessar todos os meus vídeos, fotos e a live exclusiva, faça o pagamento de <strong>R$ 10,00</strong> e me mande o comprovante no zap para receber sua senha.</div>
     
     <div class="pix-box">
       <h3>🔑 Dados para Pagamento</h3>
@@ -329,9 +279,15 @@
     </div>
   </div>
 
-  <!-- ── CONTEÚDO VIP (Inicia escondido) ── -->
-  <div id="vip-content">
+  <!-- ── CONTEÚDO VIP (Inicia escondido dentro desse wrapper) ── -->
+  <div id="vip-wrapper">
     
+    <div class="top-banner">🔒 ÁREA VIP · ACESSO EXCLUSIVO · APENAS PARA VOCÊ</div>
+
+    <div class="cover">
+      <div class="cover-gradient"></div>
+    </div>
+
     <div class="hero-live-wrapper fadein">
       <div class="profile-section">
         <div class="avatar-ring">
@@ -494,7 +450,7 @@
       </a>
     </div>
 
-  </div> <!-- Fim VIP Content -->
+  </div> <!-- Fim VIP Wrapper -->
 
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
     <div class="lightbox-inner" id="lightbox-inner">
@@ -505,7 +461,7 @@
   <script>
     // ── LÓGICA DE COPIAR PIX ──
     function copiarPix() {
-      const pix = "07522521190"; // Chave sem pontuação para facilitar no app do banco
+      const pix = "07522521190";
       navigator.clipboard.writeText(pix).then(() => {
         const btn = document.querySelector('.pix-copy-btn');
         btn.innerText = "Chave Copiada! ✅";
@@ -514,28 +470,42 @@
         btn.style.borderColor = "#4ade80";
         setTimeout(() => {
           btn.innerText = "Copiar Chave Pix";
-          btn.style.background = "rgba(255, 61, 127, 0.1)";
+          btn.style.background = "rgba(255, 61, 127, 0.15)";
           btn.style.color = "var(--accent)";
           btn.style.borderColor = "var(--accent)";
         }, 3000);
       });
     }
 
-    // ── LÓGICA DE SENHA E LIBERAÇÃO DO VIP ──
+    // ── LÓGICA DE SENHA E PIXEL DE COMPRA ──
     function checkPassword() {
+      // Pega o que o usuário digitou e transforma em minúsculas
       const inputPass = document.getElementById('vip-password').value.trim().toLowerCase();
       
-      // ABAIXO VOCÊ ALTERA A SENHA (atualmente é 'liberado')
-      const senhaCorreta = "Liberado5949"; 
+      // Senha definida no sistema (transformada em minúsculo por segurança)
+      const senhaCorreta = "Liberado5949".toLowerCase(); 
       
       if (inputPass === senhaCorreta) {
-        // Esconde a tela de bloqueio e mostra o VIP
-        document.getElementById('gate-screen').style.display = 'none';
-        document.getElementById('vip-content').style.display = 'block';
         
-        // Inicia os scripts pesados (Live e Chat) só agora para não rodar escondido
+        // 1. DISPARA O PIXEL DE COMPRA SOMENTE AQUI!
+        if (typeof fbq === 'function') {
+          fbq('track', 'Purchase', {value: 10.00, currency: 'BRL'});
+          console.log("Evento de Compra enviado ao Facebook!"); // Apenas para checagem interna
+        }
+
+        // 2. Remove o vídeo embaçado do fundo e volta a cor normal do site
+        const lockedBg = document.getElementById('locked-bg');
+        if(lockedBg) lockedBg.style.display = 'none';
+        document.body.style.background = 'var(--bg)';
+        
+        // 3. Esconde a tela de bloqueio e mostra o conteúdo VIP
+        document.getElementById('gate-screen').style.display = 'none';
+        document.getElementById('vip-wrapper').style.display = 'block';
+        
+        // 4. Inicia a live e vai pro topo
         iniciarLiveEChat();
-        window.scrollTo(0, 0); // Sobe a página para o topo
+        window.scrollTo(0, 0); 
+        
       } else {
         document.getElementById('error-msg').style.display = 'block';
       }

@@ -423,7 +423,8 @@
 
     <div class="live-video-section">
       <div class="live-badge">🔴 AO VIVO</div>
-      <video id="live-video-player" autoplay muted playsinline preload="auto"></video>
+      <!-- Ajustado com poster e o src inicial forçado para evitar tela preta -->
+      <video id="live-video-player" src="https://s3.canalwpp.com/livesarah/liveparte1.mp4" poster="https://s3.canalwpp.com/sarah2.0/previa1.jpg" autoplay muted playsinline preload="auto"></video>
     </div>
   </div>
 
@@ -621,23 +622,25 @@
     // ── LÓGICA DO VÍDEO EM PARTES (PLAYLIST DA LIVE) ──
     const videoPlayer = document.getElementById('live-video-player');
     
-    // Lista com as 8 partes fatiadas
+    // Lista com as 8 partes fatiadas (apontando pro bucket livesarah)
     const videoParts = [
-      'https://s3.canalwpp.com/sarah2.0/liveparte1.mp4',
-      'https://s3.canalwpp.com/sarah2.0/liveparte2.mp4',
-      'https://s3.canalwpp.com/sarah2.0/liveparte3.mp4',
-      'https://s3.canalwpp.com/sarah2.0/liveparte4.mp4',
-      'https://s3.canalwpp.com/sarah2.0/liveparte5.mp4',
-      'https://s3.canalwpp.com/sarah2.0/liveparte6.mp4',
-      'https://s3.canalwpp.com/sarah2.0/liveparte7.mp4',
-      'https://s3.canalwpp.com/sarah2.0/liveparte8.mp4'
+      'https://s3.canalwpp.com/livesarah/liveparte1.mp4',
+      'https://s3.canalwpp.com/livesarah/liveparte2.mp4',
+      'https://s3.canalwpp.com/livesarah/liveparte3.mp4',
+      'https://s3.canalwpp.com/livesarah/liveparte4.mp4',
+      'https://s3.canalwpp.com/livesarah/liveparte5.mp4',
+      'https://s3.canalwpp.com/livesarah/liveparte6.mp4',
+      'https://s3.canalwpp.com/livesarah/liveparte7.mp4',
+      'https://s3.canalwpp.com/livesarah/liveparte8.mp4'
     ];
 
     let currentPartIndex = 0;
 
     if (videoPlayer && videoParts.length > 0) {
-      videoPlayer.src = videoParts[currentPartIndex];
-      videoPlayer.play().catch(e => console.log("Aguardando interação para tocar:", e));
+      // Tenta forçar o play com um pequeno atraso para burlar o bloqueio do celular
+      setTimeout(() => {
+        videoPlayer.play().catch(e => console.log("Aguardando interação para tocar:", e));
+      }, 200);
       
       videoPlayer.addEventListener('ended', () => {
         currentPartIndex++;
@@ -648,7 +651,7 @@
         }
         
         videoPlayer.src = videoParts[currentPartIndex];
-        videoPlayer.play();
+        videoPlayer.play().catch(e => console.log("Erro ao pular de parte:", e));
       });
     }
 

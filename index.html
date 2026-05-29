@@ -137,18 +137,19 @@
     /* ── LIVE VIDEO SECTION ── */
     .live-video-section {
       position: relative;
-      background: #000;
+      background: #000; /* Fundo preto para as bordas do vídeo contain */
       border-radius: var(--radius);
       overflow: hidden;
       border: 2px solid var(--accent);
       box-shadow: 0 0 15px rgba(255, 61, 127, 0.25);
-      aspect-ratio: 4/5;
+      aspect-ratio: 3/4; /* Um pouco mais alto para aproveitar a tela do celular */
       display: flex;
     }
     .live-video-section video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* ALTERADO AQUI: Garante que o vídeo inteiro apareça sem cortar */
+      background: #000;
     }
     .live-badge {
       position: absolute;
@@ -164,6 +165,34 @@
       animation: pulseRed 1.5s infinite;
       letter-spacing: 0.5px;
     }
+
+    /* Botão de Tela Cheia */
+    .fullscreen-btn {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: background 0.3s;
+    }
+    .fullscreen-btn:hover {
+      background: rgba(255, 61, 127, 0.8);
+    }
+    .fullscreen-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
     @keyframes pulseRed {
       0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
       70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
@@ -423,8 +452,15 @@
 
     <div class="live-video-section">
       <div class="live-badge">🔴 AO VIVO</div>
-      <!-- Ajustado com poster e o src inicial forçado para evitar tela preta -->
+      <!-- Vídeo agora adaptado sem cortar (object-fit: contain) -->
       <video id="live-video-player" src="https://s3.canalwpp.com/livesarah/liveparte1.mp4" poster="https://s3.canalwpp.com/sarah2.0/previa1.jpg" autoplay muted playsinline preload="auto"></video>
+      
+      <!-- Botão para acionar a Tela Cheia -->
+      <button class="fullscreen-btn" id="btn-fullscreen" title="Tela Cheia">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+        </svg>
+      </button>
     </div>
   </div>
 
@@ -621,6 +657,22 @@
 
     // ── LÓGICA DO VÍDEO EM PARTES (PLAYLIST DA LIVE) ──
     const videoPlayer = document.getElementById('live-video-player');
+    
+    // Lógica do botão de Tela Cheia
+    const btnFullscreen = document.getElementById('btn-fullscreen');
+    if(btnFullscreen && videoPlayer) {
+      btnFullscreen.addEventListener('click', () => {
+        if (videoPlayer.requestFullscreen) {
+          videoPlayer.requestFullscreen();
+        } else if (videoPlayer.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+          videoPlayer.webkitRequestFullscreen();
+        } else if (videoPlayer.webkitEnterFullscreen) { /* iOS Safari */
+          videoPlayer.webkitEnterFullscreen();
+        } else if (videoPlayer.msRequestFullscreen) { /* IE/Edge */
+          videoPlayer.msRequestFullscreen();
+        }
+      });
+    }
     
     // Lista com as 8 partes fatiadas (apontando pro bucket livesarah)
     const videoParts = [

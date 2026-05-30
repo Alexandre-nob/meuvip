@@ -90,7 +90,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 18px;
+      padding: 20px 18px; /* Reduzido para subir o conteúdo */
       text-align: center;
       opacity: 0;
     }
@@ -105,10 +105,10 @@
     }
 
     .gate-avatar {
-      width: 90px; height: 90px;
+      width: 80px; height: 80px; /* Reduzido de 90px para 80px para sobrar mais espaço na tela */
       border-radius: 50%; padding: 3px;
       background: linear-gradient(135deg, var(--accent), var(--accent2), var(--gold));
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       box-shadow: 0 8px 32px rgba(255,61,127,.35);
     }
     .gate-avatar img {
@@ -116,24 +116,24 @@
       border-radius: 50%; object-fit: cover; border: 3px solid #1a0820;
     }
     .gate-title {
-      font-size: 1.4rem; font-weight: 700; color: var(--accent);
-      margin-top: 15px; margin-bottom: 8px;
+      font-size: 1.3rem; font-weight: 700; color: var(--accent);
+      margin-top: 10px; margin-bottom: 6px;
     }
     .gate-desc {
-      color: var(--text); font-size: 0.95rem; line-height: 1.5;
-      margin-bottom: 25px; max-width: 400px;
+      color: var(--text); font-size: 0.9rem; line-height: 1.4;
+      margin-bottom: 18px; max-width: 400px;
     }
     .pix-box {
       background: rgba(15, 20, 25, 0.85);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 61, 127, 0.3);
       border-radius: var(--radius);
-      padding: 20px; width: 100%; max-width: 400px;
-      text-align: left; margin-bottom: 25px;
+      padding: 18px; width: 100%; max-width: 400px;
+      text-align: left; margin-bottom: 18px;
       box-shadow: 0 4px 25px rgba(0,0,0,0.5);
     }
     .pix-box h3 {
-      font-size: 1rem; margin-bottom: 15px; color: var(--gold);
+      font-size: 1rem; margin-bottom: 12px; color: var(--gold);
       text-align: center; border-bottom: 1px solid var(--border); padding-bottom: 10px;
     }
     .pix-info-row { margin-bottom: 10px; font-size: 0.85rem; }
@@ -144,11 +144,24 @@
     .pix-copy-btn {
       width: 100%; padding: 12px; background: rgba(255, 61, 127, 0.15);
       border: 1px solid var(--accent); color: var(--accent);
-      border-radius: 8px; font-weight: 700; margin-top: 10px; cursor: pointer; transition: all 0.3s;
+      border-radius: 8px; font-weight: 700; margin-top: 5px; cursor: pointer; transition: all 0.3s;
     }
     .pix-copy-btn:hover { background: var(--accent); color: #fff; }
     
     .password-area { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; }
+    
+    /* Divisória visual entre o botão do zap e o input de senha */
+    .step-divider {
+      display: flex; align-items: center; text-align: center;
+      color: var(--muted); font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; margin: 4px 0;
+    }
+    .step-divider::before, .step-divider::after {
+      content: ''; flex: 1; border-bottom: 1px solid var(--border);
+    }
+    .step-divider::before { margin-right: .5em; }
+    .step-divider::after { margin-left: .5em; }
+
     .password-area input {
       width: 100%; padding: 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);
       background: rgba(0,0,0,0.5); color: #fff; font-size: 1rem; text-align: center; outline: none; backdrop-filter: blur(5px);
@@ -173,7 +186,7 @@
       background: rgba(37, 211, 102, 0.25);
     }
 
-    .error-msg { color: #ef4444; font-size: 0.85rem; margin-top: 5px; display: none; font-weight: 500; }
+    .error-msg { color: #ef4444; font-size: 0.85rem; margin-top: 0px; display: none; font-weight: 500; }
 
     /* ── ESTRUTURA VIP (Fica oculta inicialmente) ── */
     #vip-wrapper { display: none; }
@@ -273,10 +286,10 @@
 </head>
 <body>
 
-  <!-- ── VÍDEO NO FUNDO DA TELA DE BLOQUEIO ── -->
+  <!-- ── VÍDEO DO TEASER NO FUNDO DA TELA DE BLOQUEIO ── -->
   <div id="locked-bg">
-    <!-- Usando a parte 1 da live para ficar rodando em loop no fundo -->
-    <video src="https://s3.canalwpp.com/livesarah/liveparte1.mp4" autoplay muted loop playsinline></video>
+    <!-- Novo vídeo que você mandou, tocando o teaser limpo no fundo -->
+    <video src="https://s3.canalwpp.com/livesarah/teasevideo.mp4" autoplay muted loop playsinline></video>
     <div class="locked-bg-overlay"></div>
   </div>
 
@@ -289,7 +302,7 @@
     <div class="profile-handle" style="color: #ccc;">@sarahhadassa</div>
     
     <div class="gate-title">Área VIP Bloqueada 🔒</div>
-    <div class="gate-desc">Para acessar todos os meus vídeos, fotos e a live exclusiva, faça o pagamento de <strong>R$ 10,00</strong> e me mande o comprovante no zap para receber sua senha.</div>
+    <div class="gate-desc">Para acessar todos os meus vídeos, fotos e a live exclusiva, faça o pagamento de <strong>R$ 10,00</strong>.</div>
     
     <div class="pix-box">
       <h3>🔑 Dados para Pagamento</h3>
@@ -309,14 +322,18 @@
     </div>
 
     <div class="password-area">
+      <!-- 1. BOTÃO DO WHATSAPP PRIMEIRO -->
+      <a href="https://wa.me/556183200152?text=Oi%20Sarah%2C%20j%C3%A1%20fiz%20o%20pagamento!%20Aqui%20est%C3%A1%20meu%20comprovante." class="btn-zap-comprovante" target="_blank" rel="noopener">
+        Enviar comprovante no zap 👇
+      </a>
+
+      <!-- Divisória visual bonita -->
+      <div class="step-divider">Já pegou a senha?</div>
+
+      <!-- 2. CAMPO DA SENHA DEPOIS -->
       <input type="text" id="vip-password" placeholder="Digite a senha de acesso" autocomplete="off">
       <button onclick="checkPassword()">Liberar Acesso 🔥</button>
       
-      <!-- BOTÃO DO WHATSAPP AQUI -->
-      <a href="https://wa.me/556183200152?text=Oi%20Sarah%2C%20j%C3%A1%20fiz%20o%20pagamento!%20Aqui%20est%C3%A1%20meu%20comprovante." class="btn-zap-comprovante" target="_blank" rel="noopener">
-        Já paguei! Enviar comprovante no zap 📲
-      </a>
-
       <div id="error-msg" class="error-msg">Senha incorreta! Envie o comprovante no zap para receber a senha correta.</div>
     </div>
   </div>
@@ -503,7 +520,7 @@
   <script>
     // ── LÓGICA DO TEASER (MOSTRA O VÍDEO NÍTIDO E DEPOIS BLOQUEIA) ──
     document.addEventListener("DOMContentLoaded", () => {
-      // Espera 3.5 segundos e ativa a trava
+      // Tempo de 7.5 segundos rodando limpo antes de travar
       setTimeout(() => {
         const lockedBg = document.getElementById('locked-bg');
         const gateScreen = document.getElementById('gate-screen');
@@ -514,7 +531,7 @@
         // Mostra o modal de pagamento com efeito fade in
         if(gateScreen) gateScreen.classList.add('show');
         
-      }, 3500); // <-- 3500 milissegundos = 3,5 segundos
+      }, 7500); // <-- 7500 milissegundos = 7,5 segundos
     });
 
     // ── LÓGICA DE COPIAR PIX ──
@@ -701,7 +718,5 @@
       });
     }
   </script>
-</body>
-</html>
 </body>
 </html>

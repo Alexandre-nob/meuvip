@@ -42,7 +42,7 @@
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
-      /* Fundo fica transparente inicialmente para o vídeo embaçado aparecer */
+      /* Fundo transparente para o vídeo aparecer */
       background: transparent; 
       color:var(--text);
       font-family:'DM Sans',system-ui,sans-serif;
@@ -50,7 +50,7 @@
       -webkit-font-smoothing:antialiased;
     }
 
-    /* ── BACKGROUND VÍDEO EMBAÇADO (TELA DE BLOQUEIO) ── */
+    /* ── BACKGROUND VÍDEO (TELA DE BLOQUEIO) ── */
     #locked-bg {
       position: fixed;
       top: 0; left: 0;
@@ -61,14 +61,24 @@
     #locked-bg video {
       width: 100%; height: 100%;
       object-fit: cover;
-      object-position: 27% center; /* <-- AJUSTE AQUI: Empurra o vídeo pra direita. Altere o 75% se precisar de mais ou menos */
-      filter: blur(15px); /* Efeito embaçado */
-      transform: scale(1.1); /* Evita bordas brancas do blur */
+      object-position: 27% center; 
+      filter: blur(0px); /* Começa nítido para o "teaser" */
+      transform: scale(1.1); 
+      transition: filter 1s ease-in-out; /* Transição suave para o blur */
     }
+    #locked-bg.locked video {
+      filter: blur(15px); /* Embaça depois que ativa a classe locked */
+    }
+
     .locked-bg-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(8, 11, 15, 0.75); /* Escurece o vídeo para o texto ficar legível */
+      background: rgba(8, 11, 15, 0.80); 
+      opacity: 0; /* Começa transparente */
+      transition: opacity 1s ease-in-out; /* Transição suave do escuro */
+    }
+    #locked-bg.locked .locked-bg-overlay {
+      opacity: 1; /* Escurece a tela quando trava */
     }
 
     /* ── PAYWALL / TELA DE BLOQUEIO ── */
@@ -76,13 +86,24 @@
       position: relative;
       z-index: 5;
       min-height: 100vh;
-      display: flex;
+      display: none; /* Começa oculto no teaser */
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 40px 18px;
       text-align: center;
+      opacity: 0;
     }
+    #gate-screen.show {
+      display: flex;
+      animation: fadeUpGate 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeUpGate {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .gate-avatar {
       width: 90px; height: 90px;
       border-radius: 50%; padding: 3px;
@@ -138,7 +159,21 @@
       background: linear-gradient(90deg, var(--accent), var(--accent2));
       color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 61, 127, 0.3);
     }
-    .error-msg { color: #ef4444; font-size: 0.85rem; margin-top: 10px; display: none; font-weight: 500; }
+    
+    /* Botão verde do Zap */
+    .btn-zap-comprovante {
+      width: 100%; padding: 14px; border-radius: 10px;
+      background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      color: #4ade80; font-size: 0.95rem; font-weight: 700;
+      text-decoration: none; display: flex; justify-content: center; align-items: center;
+      transition: all 0.3s;
+    }
+    .btn-zap-comprovante:hover {
+      background: rgba(37, 211, 102, 0.25);
+    }
+
+    .error-msg { color: #ef4444; font-size: 0.85rem; margin-top: 5px; display: none; font-weight: 500; }
 
     /* ── ESTRUTURA VIP (Fica oculta inicialmente) ── */
     #vip-wrapper { display: none; }
@@ -238,7 +273,7 @@
 </head>
 <body>
 
-  <!-- ── VÍDEO EMBAÇADO NO FUNDO DA TELA DE BLOQUEIO ── -->
+  <!-- ── VÍDEO NO FUNDO DA TELA DE BLOQUEIO ── -->
   <div id="locked-bg">
     <!-- Usando a parte 1 da live para ficar rodando em loop no fundo -->
     <video src="https://s3.canalwpp.com/livesarah/liveparte1.mp4" autoplay muted loop playsinline></video>
@@ -246,7 +281,7 @@
   </div>
 
   <!-- ── TELA DE BLOQUEIO (GATE) ── -->
-  <div id="gate-screen" class="fadein">
+  <div id="gate-screen">
     <div class="gate-avatar">
       <img src="https://s3.canalwpp.com/sarah2.0/previa1.jpg" alt="Sarah Hadassa">
     </div>
@@ -276,6 +311,12 @@
     <div class="password-area">
       <input type="text" id="vip-password" placeholder="Digite a senha de acesso" autocomplete="off">
       <button onclick="checkPassword()">Liberar Acesso 🔥</button>
+      
+      <!-- BOTÃO DO WHATSAPP AQUI -->
+      <a href="https://wa.me/556183200152?text=Oi%20Sarah%2C%20j%C3%A1%20fiz%20o%20pagamento!%20Aqui%20est%C3%A1%20meu%20comprovante." class="btn-zap-comprovante" target="_blank" rel="noopener">
+        Já paguei! Enviar comprovante no zap 📲
+      </a>
+
       <div id="error-msg" class="error-msg">Senha incorreta! Envie o comprovante no zap para receber a senha correta.</div>
     </div>
   </div>
@@ -460,6 +501,22 @@
   </div>
 
   <script>
+    // ── LÓGICA DO TEASER (MOSTRA O VÍDEO NÍTIDO E DEPOIS BLOQUEIA) ──
+    document.addEventListener("DOMContentLoaded", () => {
+      // Espera 3.5 segundos e ativa a trava
+      setTimeout(() => {
+        const lockedBg = document.getElementById('locked-bg');
+        const gateScreen = document.getElementById('gate-screen');
+        
+        // Adiciona o blur e escurece a tela de fundo
+        if(lockedBg) lockedBg.classList.add('locked');
+        
+        // Mostra o modal de pagamento com efeito fade in
+        if(gateScreen) gateScreen.classList.add('show');
+        
+      }, 3500); // <-- 3500 milissegundos = 3,5 segundos
+    });
+
     // ── LÓGICA DE COPIAR PIX ──
     function copiarPix() {
       const pix = "07522521190";
@@ -480,10 +537,7 @@
 
     // ── LÓGICA DE SENHA E PIXEL DE COMPRA ──
     function checkPassword() {
-      // Pega o que o usuário digitou e transforma em minúsculas
       const inputPass = document.getElementById('vip-password').value.trim().toLowerCase();
-      
-      // Senha definida no sistema (transformada em minúsculo por segurança)
       const senhaCorreta = "Liberado5949".toLowerCase(); 
       
       if (inputPass === senhaCorreta) {
@@ -491,16 +545,20 @@
         // 1. DISPARA O PIXEL DE COMPRA SOMENTE AQUI!
         if (typeof fbq === 'function') {
           fbq('track', 'Purchase', {value: 10.00, currency: 'BRL'});
-          console.log("Evento de Compra enviado ao Facebook!"); // Apenas para checagem interna
+          console.log("Evento de Compra enviado ao Facebook!"); 
         }
 
-        // 2. Remove o vídeo embaçado do fundo e volta a cor normal do site
+        // 2. Remove o vídeo do fundo e volta a cor normal do site
         const lockedBg = document.getElementById('locked-bg');
         if(lockedBg) lockedBg.style.display = 'none';
         document.body.style.background = 'var(--bg)';
         
         // 3. Esconde a tela de bloqueio e mostra o conteúdo VIP
-        document.getElementById('gate-screen').style.display = 'none';
+        const gateScreen = document.getElementById('gate-screen');
+        if(gateScreen) {
+            gateScreen.classList.remove('show');
+            gateScreen.style.display = 'none';
+        }
         document.getElementById('vip-wrapper').style.display = 'block';
         
         // 4. Inicia a live e vai pro topo
@@ -643,5 +701,7 @@
       });
     }
   </script>
+</body>
+</html>
 </body>
 </html>

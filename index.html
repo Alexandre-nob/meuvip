@@ -19,8 +19,8 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     
-    // COLOQUE O ID DO SEU PIXEL ABAIXO (Substitua SEU_PIXEL_ID pelo número do seu pixel)
-    fbq('init', 'SEU_PIXEL_ID'); 
+    // ID DO PIXEL ATUALIZADO
+    fbq('init', '1673968253270388'); 
     
     // Dispara apenas o PageView quando a página abre
     fbq('track', 'PageView');
@@ -167,6 +167,8 @@
     .pix-copy-btn:hover { background: var(--accent); color: #fff; }
     
     .action-area { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; }
+    
+    /* ── NÚMERO DO WHATSAPP ATUALIZADO ── */
     .btn-zap-comprovante { width: 100%; padding: 14px; border-radius: 10px; background: rgba(37, 211, 102, 0.15); border: 1px solid rgba(37, 211, 102, 0.5); color: #4ade80; font-size: 1.05rem; font-weight: 700; text-decoration: none; display: flex; justify-content: center; align-items: center; transition: all 0.3s; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.15); }
     .btn-zap-comprovante:hover { background: rgba(37, 211, 102, 0.25); }
     .divider-text { font-size: 0.85rem; color: var(--muted); margin: 5px 0; font-weight: 500; }
@@ -361,7 +363,8 @@
 
     <!-- ── ORDEM DOS BOTÕES (ZAP PRIMEIRO) ── -->
     <div class="action-area">
-      <a href="https://wa.me/556183200152?text=Oi%20Sarah%2C%20j%C3%A1%20fiz%20o%20pagamento!%20Aqui%20est%C3%A1%20meu%20comprovante." class="btn-zap-comprovante" target="_blank" rel="noopener">
+      <!-- LINK DE WHATSAPP ATUALIZADO (COMPROVANTE) -->
+      <a href="https://wa.me/556181672442?text=Oi%20Sarah%2C%20j%C3%A1%20fiz%20o%20pagamento!%20Aqui%20est%C3%A1%20meu%20comprovante." class="btn-zap-comprovante" target="_blank" rel="noopener">
         📲 Enviar comprovante
       </a>
 
@@ -542,7 +545,8 @@
 
     <div class="support-footer fadein">
       <p>Curtiu os conteúdos? Fala comigo no WhatsApp para mais exclusivos ou para tirar qualquer dúvida 💕</p>
-      <a class="btn-support" href="https://wa.me/556183200152?text=Oi%20Sarah%2C%20quero%20mais%20conte%C3%BAdos" target="_blank" rel="noopener">
+      <!-- LINK DE WHATSAPP ATUALIZADO (RODAPÉ) -->
+      <a class="btn-support" href="https://wa.me/556181672442?text=Oi%20Sarah%2C%20quero%20mais%20conte%C3%BAdos" target="_blank" rel="noopener">
         💬 Falar com a Sarah
       </a>
     </div>
@@ -599,16 +603,16 @@
           if(btnEntrar) btnEntrar.classList.add('show');
         }, 8000);
 
-        // Aos 15s: Trava a tela independentemente de clique
+        // ATUALIZADO: Aos 25s: Trava a tela independentemente de clique
         let timerTrava = setTimeout(() => {
           clearInterval(relogioInterval);
           travarTela();
-        }, 15000);
+        }, 25000);
 
-        // Se clicar no botão entre o segundo 8 e 15, trava na hora!
+        // Se clicar no botão entre o segundo 8 e 25, trava na hora!
         if(btnEntrar) {
           btnEntrar.addEventListener('click', () => {
-            clearTimeout(timerTrava); // Cancela o timer dos 15s
+            clearTimeout(timerTrava); // Cancela o timer dos 25s
             clearInterval(relogioInterval); // Para o reloginho
             travarTela();
           });
@@ -639,8 +643,10 @@
       const inputPass = document.getElementById('vip-password').value.trim().toLowerCase();
       const senhaCorreta = "Liberado5949".toLowerCase(); 
       
+      // Validação: Só executa o código abaixo se a senha estiver 100% certa
       if (inputPass === senhaCorreta) {
         
+        // Disparo do Evento de Compra do Facebook Pixel
         if (typeof fbq === 'function') {
           fbq('track', 'Purchase', {value: 19.90, currency: 'BRL'});
           console.log("Evento de Compra enviado ao Facebook!"); 
